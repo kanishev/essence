@@ -120,7 +120,7 @@ router.get('/shop', async (req, res) => {
                 if (f.goodId == null){
                     return true
                 } else {
-                    toEqual(favourites.favour.items, clothes)
+                    toEqual(favourites.favour.items, goods)
                 }
             })
         }
