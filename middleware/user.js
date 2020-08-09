@@ -1,10 +1,11 @@
 const User = require('../models/User')
 const Guest = require('../models/Guest')
+const uuid = require('uuid').v4
 
 module.exports = async function(req, res, next) {
 
     if(! req.session.user){
-        const id = process.env.COMPUTERNAME
+        const id = uuid()
         const guest = await Guest.findOne({id: id})
 
         if(guest){
