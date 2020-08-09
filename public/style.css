@@ -153,10 +153,11 @@
     @media (max-width: 1650px) {
     
         .mainLogin.active {
-            overflow-y: auto;
             top: 0;
             transform: none;
+            position: absolute;
         }
+
         .error_block {
             display: flex;
             align-items: flex-start;

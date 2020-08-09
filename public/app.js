@@ -2,15 +2,18 @@
 
 const modalWindow = document.querySelector('.mainLogin')
 const modal = document.querySelector('.loginModal')
+const header = document.querySelector('.header_area')
 
 function modalOpen() {
     modal.classList.add('active')
     modalWindow.classList.add('active')
+    header.style.zIndex = "99"
 }
 
 function modalClose(){
     modalWindow.classList.remove('active')
     modal.classList.remove('active')
+    header.style.zIndex = "99999"
 }
 
 
