@@ -1,0 +1,40 @@
+   <div class="main-order mb-100 mt-100">
+   <div class="col-12 col-md-6 container ">
+                    <h2 class="order_title">Your orders</h2>
+                    <hr>
+                    <div class="checkout_details_area clearfix order_list" >
+
+                    {{#if order.length}}
+
+                            {{#each order}}
+                                
+                                 <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">
+                                        <p>Your name: {{user.name}}</p>
+                                        <p>Your id: {{user.id}}</p>
+                                    </div>
+                                      {{#each good}}  
+                                      <div class="card-body">
+                                      <h5 class="card-title">Good name: {{good.title}}</h5>
+                                      <p class="card-text">Good id: {{good._id}}</p>
+                                      <p class="card-text">Good price: {{good.price}}</p>
+                                      <p class="card-text">count: {{count}}</p>
+                                      <hr>
+                                      </div>
+                                      {{/each}}
+                                    <div class="card-body">
+                                        <span class="price_name">Total</span>
+                                        <span class="price">{{total}} $</span>
+                                    </div>
+                                  </div>                            
+                            {{/each}}
+
+
+                    {{else}}
+                    <h2>There are nothing to buy</h2>
+                    {{/if}}
+
+                       
+                    </div>
+                </div>
+        </div>

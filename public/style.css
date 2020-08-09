@@ -1,0 +1,227 @@
+    /* ####################################################
+    :: Template Name: Essence - Fashion Ecommerce Template
+    :: Author: Colorlib
+    :: Author URL: https://colorlib.com
+    :: Description: Essence is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform.
+    :: Version: 1.0.0
+    :: Created: April 27, 2018
+    :: Last Updated: May 2, 2018
+    #################################################### */
+
+    /* ---------------------------------------
+    ##### - PLACE YOUR CUSTOM CSS HERE - #####
+    --------------------------------------- */
+
+    .footer-items , .socials{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* .order-list {
+       
+    } */
+
+    .loginModal {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .loginModal.active {
+        display: block;
+        z-index: 100;
+    }
+
+    .mainLogin {
+        display: none;
+    }
+
+    .mainLogin.active {
+        padding: 27px;
+        position: fixed;
+        display: block;
+        left: 0;
+        right: 0;
+        z-index: 222;
+       
+        width: 40vw;
+        background-color: snow;
+        margin: 0 auto;
+        transform: translateY(15vh);
+        border-radius: 7px;
+    }
+ 
+
+    .error {
+        padding: 3px 5px;
+        background-color: rgba(231, 31, 27, 0.6);
+        color: red;
+        border-radius: 6px;
+        display: block;
+        margin-bottom: 5px;
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .error_block {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+    }
+
+    .main_admin {
+        padding: 50px 20px;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        border: 1px dotted grey;
+        padding: 3px;
+        text-align: center;
+    }
+    tr.head {
+        border: 2px solid black;
+    }
+
+    .tableblock{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .price_name{ 
+        font-size: large;
+        font-weight: 600;
+    }
+
+    .price{
+        font-family: inherit;
+    }
+
+    .order_list{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .list_2{
+        padding: 20px !important;
+    }
+    .resetblock {
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+
+    .error_success{
+        padding: 3px 5px;
+        background-color: rgba(64, 163, 70, 0.8);;
+        color: green;
+        border-radius: 6px;
+        display: block;
+        margin-bottom: 5px;
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .notice {
+        padding: 3px 5px;
+        background-color: rgba(255, 208, 0, 0.8);;
+        color: yellow;
+        border-radius: 6px;
+        display: block;
+        margin-bottom: 5px;
+        width: 200px;
+        text-align: center;
+    }
+
+    .loginTitle{
+        font-size: 25px;
+    }
+
+    @media (max-width: 1650px) {
+        .header_area{
+            z-index: -1 !important;
+        }
+        .mainLogin.active {
+            top: 0;
+            transform: none;
+        }
+        .error_block {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around; 
+        }
+    }
+
+    @media (max-width: 1500px) {
+        .header_area{
+            z-index: -1 !important;
+        }
+        .mainLogin.active {
+           width: 30vw;
+        }
+        .error_block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .loginForm {
+            padding-bottom: 40px;
+            border-bottom: 1px solid grey;
+        }
+
+        .registerForm{
+            padding-top: 20px;
+        }
+    }
+
+
+    @media (max-width: 1200px) {
+    
+        .loginForm, .registerForm {
+            width: 250px;
+        }
+        
+    }
+
+    @media (max-width: 1000px) {
+    
+        .mainLogin.active{
+            width: 335px;
+        }
+
+        .loginForm, .registerForm {
+            width: 200px;
+        }
+        
+    }
+
+    @media (max-width: 500px) {
+    
+        .mainLogin.active{
+            width: 300px;
+        }
+        
+    }
+
+    
+    @media (max-width: 350px) {
+    
+        .mainLogin.active{
+            width: 265px;
+        }
+        
+    }
