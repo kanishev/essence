@@ -151,10 +151,9 @@
     }
 
     @media (max-width: 1650px) {
-        .header_area{
-            z-index: -1 !important;
-        }
+    
         .mainLogin.active {
+            overflow-y: auto;
             top: 0;
             transform: none;
         }
@@ -166,9 +165,7 @@
     }
 
     @media (max-width: 1500px) {
-        .header_area{
-            z-index: -1 !important;
-        }
+      
         .mainLogin.active {
            width: 30vw;
         }
