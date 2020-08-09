@@ -172,7 +172,7 @@
         }
         
         .error, .error_success, .notice {
-            width: 25vw;
+            width: auto;
         }
 
         .error_block {
