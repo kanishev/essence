@@ -77,6 +77,7 @@ app.use('/email', emailRoute)
 app.use('/favourite', favouriteRouter)
 
 app.use(notFound)
+const PORT = process.env.PORT || 3000
 
 async function start(){
 
@@ -86,7 +87,7 @@ async function start(){
       useUnifiedTopology: true
     })
   
-    app.listen(3000, function () {
+    app.listen(PORT, function () {
       console.log('Server has been started...');
     });
   }catch(e){
