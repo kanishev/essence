@@ -27,7 +27,9 @@ router.post('/admin/shop', adminpage, async (req, res)=> {
 })
 
 router.post('/admin/addGood', adminpage, (req, res) => {
-    res.redirect('/admin')
+    if(req.file){
+        res.redirect('/shop')
+    }
 })
 
 module.exports = router

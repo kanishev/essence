@@ -44,7 +44,7 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/public/img/myImg', express.static(path.join(__dirname, 'public/img/myImg')))
+app.use('/image', express.static(path.join(__dirname, 'image')))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
