@@ -172,6 +172,11 @@
         .mainLogin.active {
            width: 30vw;
         }
+        
+        .error, .error_success, .notice {
+            width: 25vw;
+        }
+
         .error_block {
             display: flex;
             flex-direction: column;

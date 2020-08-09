@@ -13,7 +13,6 @@ const keys = require('../keys/index')
 const sender = require('../mails/reqister')
 const subscribe = require('../mails/subscribe')
 const sendOrder = require('../mails/orders')
-const {registerValidator} = require('../utils/validators')
 
 
 const mailer = nodemailer.createTransport(transporter({
@@ -24,26 +23,35 @@ const mailer = nodemailer.createTransport(transporter({
 
 // Send register mail
 
-router.post('/register', registerValidator, async (req, res) => {
+router.post('/register', async (req, res) => {
 
     try{
-        const {password, email, cart} = req.body
+        const {password, email, cart, confirm} = req.body
 
-        const errors = validationResult(req)
-        if (!errors.isEmpty()){
-            req.flash('authError', errors.array()[0].msg)
-            return res.status(422).redirect('/')
+        const candidate = await User.findOne({email: email})
+
+        if (candidate){
+            req.flash('authError', 'Пользователь существует')
+            res.redirect('/')
+        }else{
+            if(confirm == password){
+                const hashed = await bcrypt.hash(password, 10)
+                const user = new User({
+                    email: email,
+                    password: hashed,
+                    cart
+                })
+                await user.save()
+                res.redirect('/')
+                await mailer.sendMail(sender(email))
+            }else {
+                req.flash('authError', 'Пароли должны совпадать')
+                res.redirect('/')
+            }
+           
         }
         
-        const hashed = await bcrypt.hash(password, 10)
-        const user = new User({
-            email: email,
-            password: hashed,
-            cart
-        })
-        await user.save()
-        res.redirect('/')
-        await mailer.sendMail(sender(email))
+       
             
     }catch(e){
         console.log(e)

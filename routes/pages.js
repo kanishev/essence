@@ -38,140 +38,118 @@ function toEqual(liked, clothes){
     })
 }
 
-    router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
 
-        try{
-            const clothes = await (await Clothes.find()).reverse()        
-            let favourites 
-            
-            if(req.guest){
-                favourites = await req.guest.populate('favour.items.goodId').execPopulate()
+    try{
+        const clothes = await (await Clothes.find()).reverse()        
+        let favourites 
 
-                favourites.favour.items.forEach(f => {
-                    if (f.goodId == null){
-                        return true
-                    } else {
-                        toEqual(favourites.favour.items, clothes)
-                    }
-                })
-            }else if(req.user){
-                favourites = await req.user.populate('favour.items.goodId').execPopulate()
+        if(req.user){
+            favourites = await req.user.populate('favour.items.goodId').execPopulate()
 
-                favourites.favour.items.forEach(f => {
-                    if (f.goodId == null){
-                        return true
-                    } else {
-                        toEqual(favourites.favour.items, clothes)
-                    }
-                })
-            }
-            
-    
-    
-            res.render('index', {
-                title: 'Главная страница',
-                authError: req.flash('authError'),
-                reseted: req.flash('reseted'),
-                notice: req.flash('notice'),
-                clothes
+            favourites.favour.items.forEach(f => {
+                if (f.goodId == null){
+                    return true
+                } else {
+                    toEqual(favourites.favour.items, clothes)
+                }
             })
-        }catch(e){
-            console.log(e)
         }
-
-    })
-
-    router.get('/blog', (req, res) => {
-        res.render('blog', {
-            title: 'Главная страница'
-        })
-    })
-
-    router.get('/checkout', auth, async (req, res) => {
-
-        try{
-            const user = await req.user.populate('cart.items.goodId').execPopulate()
-            const goods = toGood(user.cart)
-                    
-            const price = toMoney(toTotal(goods))
+       
         
-            res.render('checkout', {
-                title: 'Главная страница',
-                cart: goods,
-                price
+        res.render('index', {
+            title: 'Главная страница',
+            authError: req.flash('authError'),
+            reseted: req.flash('reseted'),
+            notice: req.flash('notice'),
+            clothes
+        })
+    }catch(e){
+        console.log(e)
+    }
+
+})
+
+router.get('/blog', (req, res) => {
+    res.render('blog', {
+        title: 'Главная страница'
+    })
+})
+
+router.get('/checkout', auth, async (req, res) => {
+
+    try{
+        const user = await req.user.populate('cart.items.goodId').execPopulate()
+        const goods = toGood(user.cart)
+                
+        const price = toMoney(toTotal(goods))
+    
+        res.render('checkout', {
+            title: 'Главная страница',
+            cart: goods,
+            price
+        })
+    }catch(e){
+        console.log(e)
+    }
+ 
+   
+})
+
+router.get('/regular', (req, res) => {
+    res.render('regular-page', {
+        title: 'Главная страница'
+    })
+})
+
+router.get('/contact', (req, res) => {
+    res.render('contact', {
+        title: 'Главная страница'
+    })
+})
+
+router.get('/shop', async (req, res) => {
+    try{
+        let goods = await Clothes.find()
+        let favourites 
+       
+        if(req.user){
+            favourites = await req.user.populate('favour.items.goodId').execPopulate()
+
+            favourites.favour.items.forEach(f => {
+                if (f.goodId == null){
+                    return true
+                } else {
+                    toEqual(favourites.favour.items, clothes)
+                }
             })
-        }catch(e){
-            console.log(e)
         }
-     
+
+        goods.forEach(good => good.price = toMoney(good.price) )
        
-    })
-
-    router.get('/regular', (req, res) => {
-        res.render('regular-page', {
-            title: 'Главная страница'
+        res.render('shop', {
+            title: 'Главная страница',
+            goods
+   
         })
+    }catch(e){
+        console.log(e)
+    }
+   
+})
+
+router.get('/single-blog', (req, res) => {
+
+    res.render('single-blog', {
+        title: 'Главная страница'
     })
+})
 
-    router.get('/contact', (req, res) => {
-        res.render('contact', {
-            title: 'Главная страница'
-        })
+router.get('/single-product-details', (req, res) => {
+    res.render('single-product-details', {
+        title: 'Главная страница'
     })
-
-    router.get('/shop', async (req, res) => {
-        try{
-            let goods = await Clothes.find()
-            let favourites 
-          
-            if(req.guest){
-                favourites = await req.guest.populate('favour.items.goodId').execPopulate()
-
-                favourites.favour.items.forEach(f => {
-                    if (f.goodId == null){
-                        return true
-                    } else {
-                        toEqual(favourites.favour.items, goods)
-                    }
-                })
-            }else if(req.user){
-                favourites = await req.user.populate('favour.items.goodId').execPopulate()
-
-                favourites.favour.items.forEach(f => {
-                    if (f.goodId == null){
-                        return true
-                    } else {
-                        toEqual(favourites.favour.items, goods)
-                    }
-                })     
-            }
-            
-
-            goods.forEach(good => good.price = toMoney(good.price) )
-           
-            res.render('shop', {
-                title: 'Главная страница',
-                goods
-       
-            })
-        }catch(e){
-            console.log(e)
-        }
-       
-    })
-
-    router.get('/single-blog', (req, res) => {
-
-        res.render('single-blog', {
-            title: 'Главная страница'
-        })
-    })
-
-    router.get('/single-product-details', (req, res) => {
-        res.render('single-product-details', {
-            title: 'Главная страница'
-        })
-    })
+})
 
 
 module.exports = router
