@@ -73,7 +73,12 @@ router.post('/reset', (req, res) => {
                 user.token = token
                 user.tokenExp = Date.now() + 3600000
                 await user.save()
-                await mailer.sendMail(resetPass(user.email, token))
+                await mailer.sendMail(resetPass(user.email, token), (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        return;
+                    }
+                })
                 req.flash('success', 'Проверьте вашу почту')
                 res.redirect('/reset')
             }
