@@ -1,44 +1,45 @@
 // ---register/login modals
 
-const modalWindow = document.querySelector('.mainLogin')
-const modal = document.querySelector('.loginModal')
-const header = document.querySelector('.header_area')
+const modalWindow = document.querySelector(".mainLogin");
+const modal = document.querySelector(".loginModal");
+const header = document.querySelector(".header_area");
 
 function modalOpen() {
-    modal.classList.add('active')
-    modalWindow.classList.add('active')
-    header.style.zIndex = "99"
+  modal.classList.add("active");
+  modalWindow.classList.add("active");
+  header.style.zIndex = "99";
 }
 
-function modalClose(){
-    modalWindow.classList.remove('active')
-    modal.classList.remove('active')
-    header.style.zIndex = "99999"
+function modalClose() {
+  modalWindow.classList.remove("active");
+  modal.classList.remove("active");
+  header.style.zIndex = "99999";
 }
-
 
 // ---cart
 
-const $cart = document.querySelector('table')
+const $cart = document.querySelector("table");
 
-if($cart) {
-    $cart.addEventListener('click', function(event) {
-        const $target = event.target
-        const id = $target.dataset.id
+if ($cart) {
+  $cart.addEventListener("click", function (event) {
+    const $target = event.target;
+    const id = $target.dataset.id;
 
-        if($target.classList.contains('addGood')){
-            const csrf = $target.dataset.csrf
+    if ($target.classList.contains("addGood")) {
+      const csrf = $target.dataset.csrf;
 
-            fetch('/cart/add/' + id, {
-                method: 'put',
-                headers: {
-                    'X-XSRF-TOKEN': csrf
-                }
-            }).then(data => data.json())
-            .then(data => {         
-                if(data.goods.length){
-                    let html = data.goods.map(c => {
-                        return `                      
+      fetch("/cart/add/" + id, {
+        method: "put",
+        headers: {
+          "X-XSRF-TOKEN": csrf,
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          if (data.goods.length) {
+            let html = data.goods
+              .map((c) => {
+                return `                      
                         <tr>
                             <td>${c.title}</td>
                             <td>${c.price}</td>
@@ -46,29 +47,30 @@ if($cart) {
                             <td><button type="submit" class="btn btn-success addGood" data-id="${c._id}" data-csrf="${csrf}">+</button></td>
                             <td><button type="submit" class="btn btn-danger removeGood" data-id="${c._id}"  data-csrf="${csrf}">-</button></td>                    
                         </tr>
-                        `
-                    }).join('')
-                    $cart.querySelector('tbody').innerHTML = html
-                    document.querySelector('.price').innerHTML = data.price
-                    document.querySelector('.card_total').innerHTML = data.price
-                }
+                        `;
+              })
+              .join("");
+            $cart.querySelector("tbody").innerHTML = html;
+            document.querySelector(".price").innerHTML = data.price;
+            document.querySelector(".card_total").innerHTML = data.price;
+          }
+        });
+    } else if ($target.classList.contains("removeGood")) {
+      const csrf = $target.dataset.csrf;
 
-            })
-        }else if ($target.classList.contains('removeGood')){
-            const csrf = $target.dataset.csrf
+      fetch("/cart/remove/" + id, {
+        method: "delete",
+        headers: {
+          "X-XSRF-TOKEN": csrf,
+        },
+      })
+        .then((data) => data.json())
 
-            fetch('/cart/remove/' + id, {
-                method: 'delete',
-                headers: {
-                    'X-XSRF-TOKEN': csrf
-                }
-            }).then(data => data.json())
-        
-            .then(data => {
-
-                if(data.goods.length){
-                    let html = data.goods.map(c => {
-                        return `                      
+        .then((data) => {
+          if (data.goods.length) {
+            let html = data.goods
+              .map((c) => {
+                return `                      
                         <tr>
                             <td>${c.title}</td>
                             <td>${c.price}</td>
@@ -76,54 +78,50 @@ if($cart) {
                             <td><button type="submit" class="btn btn-success addGood" data-id="${c._id}" data-csrf="${csrf}">+</button></td>
                             <td><button type="submit" class="btn btn-danger removeGood" data-id="${c._id}" data-csrf="${csrf}">-</button></td>                    
                         </tr>
-                        `
-                    }).join('')
-                    $cart.querySelector('tbody').innerHTML = html
-                    document.querySelector('.price').innerHTML = data.price
-                    document.querySelector('.card_total').innerHTML =  data.price
-
-                }else {
-                    document.querySelector('.tableblock').innerHTML = '<h1>There are nothing to byu</h1>'
-                    document.querySelector('.card_total').innerHTML =  0
-                }
-
-            })
-        }
-    })
+                        `;
+              })
+              .join("");
+            $cart.querySelector("tbody").innerHTML = html;
+            document.querySelector(".price").innerHTML = data.price;
+            document.querySelector(".card_total").innerHTML = data.price;
+          } else {
+            document.querySelector(".tableblock").innerHTML =
+              "<h1>There are nothing to byu</h1>";
+            document.querySelector(".card_total").innerHTML = 0;
+          }
+        });
+    }
+  });
 }
 
-// ---favourite 
+// ---favourite
 
-const favoures = document.querySelectorAll('.favme')
+const favoures = document.querySelectorAll(".favme");
 
-favoures.forEach(f => {
-    f.addEventListener('click', (event) => {
+favoures.forEach((f) => {
+  f.addEventListener("click", (event) => {
+    const target = event.target;
+    const id = target.dataset.id;
+    const csrf = target.dataset.csrf;
+    const favourBlock = document.querySelector(".favourBlock");
 
-        const target = event.target
-        const id = target.dataset.id
-        const csrf = target.dataset.csrf
-        const favourBlock = document.querySelector('.favourBlock')
-
-        if(target.classList.contains('active')){
-           
-            if(target.dataset.page == 'shop'){
-
-                target.classList.remove('active')
-                fetch('/favourite/remove/' + id, {
-                    method: 'get'
-                })
-                .then(data => data.json())
-
-            }else if (target.dataset.page == 'favourites'){
-                
-                fetch('/favourite/remove/' + id, {
-                    method: 'get'
-                })
-                .then(data => data.json())
-                .then(data => {
-                    if(data.length){
-                        console.log(data)
-                        const html = data.map(g => `
+    if (target.classList.contains("active")) {
+      if (target.dataset.page == "shop") {
+        target.classList.remove("active");
+        fetch("/favourite/remove/" + id, {
+          method: "get",
+        }).then((data) => data.json());
+      } else if (target.dataset.page == "favourites") {
+        fetch("/favourite/remove/" + id, {
+          method: "get",
+        })
+          .then((data) => data.json())
+          .then((data) => {
+            if (data.length) {
+              console.log(data);
+              const html = data
+                .map(
+                  (g) => `
                         <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
@@ -166,24 +164,24 @@ favoures.forEach(f => {
                                 </div>
                             </div>
                         </div>
-                    </div>`).join('')
-                        favourBlock.innerHTML = html
-                    }else{
-                        favourBlock.innerHTML = "There are nothing to Love"
-                    }
-                })
+                    </div>`
+                )
+                .join("");
+              favourBlock.innerHTML = html;
+            } else {
+              favourBlock.innerHTML = "There are nothing to Love";
             }
-
-        } else {
-            fetch('/favourite/add/' + id, {
-                method: 'get',
-                headers: {
-                    'X-XSRF-TOKEN': csrf
-                }
-            })
-            .then(data => data.json())
-            .then(data => target.classList.add(data))
-        }
- 
-    })
-})
+          });
+      }
+    } else {
+      fetch("/favourite/add/" + id, {
+        method: "get",
+        headers: {
+          "X-XSRF-TOKEN": csrf,
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => target.classList.add(data));
+    }
+  });
+});

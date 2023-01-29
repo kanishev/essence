@@ -1,3 +1,3 @@
-module.exports = function(req, res, next){
-    return res.redirect('/')
-}
+module.exports = function (req, res, next) {
+  return res.redirect("/");
+};

@@ -1,6 +1,6 @@
-const {body} = require('express-validator')
-const User = require('../models/User')
-const bcrypt = require('bcrypt')
+const { body } = require("express-validator");
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 // exports.loginValidator = [
 
@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 //     .custom(async (value, {req}) => {
 
 //         try{
-           
+
 //             const user = await User.findOne({email: value})
 //             if(user){
 //                 const areSame = await bcrypt.compare(req.body.password, user.password)
@@ -29,8 +29,7 @@ const bcrypt = require('bcrypt')
 //         catch(e){
 //             console.log(e)
 //         }
-     
-      
+
 //     })
 
 // ]
@@ -51,7 +50,7 @@ const bcrypt = require('bcrypt')
 //         catch(e){
 //             console.log(e)
 //         }
-       
+
 //     })
 //     .normalizeEmail(),
 

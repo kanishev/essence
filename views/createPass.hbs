@@ -1,18 +1,25 @@
-  <div class="col-12 col-sm-6 col-lg-6 resetblock">
-            <h1>Create new Password</h1>
-            {{#if error}}
-            <p class="error">{{error}}</p>
-            {{/if}}
-            <form action="/reset/password/create" method="POST">
-           
-                 <div class="form-group">
-                   <label for="goodName">Enter new password</label>
-                   <input type="password" class="form-control" id="goodName" aria-describedby="emailHelp" placeholder="Enter password" name="password">
-                 </div>
-                 <input type="hidden" name="token" value="{{token}}">
-                 <input type="hidden" name="userId" value="{{userId}}">
-                 <input type="hidden" name="_csrf" value="{{csurf}}">
-                 <button type="submit" class="btn btn-primary">create</button>
-           </form>
-         
-      </div>
+<div class="col-12 col-sm-6 col-lg-6 resetblock">
+  <h1>Create new Password</h1>
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+  <form action="/reset/password/create" method="POST">
+
+    <div class="form-group">
+      <label for="goodName">Enter new password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="goodName"
+        aria-describedby="emailHelp"
+        placeholder="Enter password"
+        name="password"
+      />
+    </div>
+    <input type="hidden" name="token" value="{{token}}" />
+    <input type="hidden" name="userId" value="{{userId}}" />
+    <input type="hidden" name="_csrf" value="{{csurf}}" />
+    <button type="submit" class="btn btn-primary">create</button>
+  </form>
+
+</div>

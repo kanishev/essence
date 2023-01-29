@@ -1,19 +1,26 @@
-  <div class="col-12 col-sm-6 col-lg-6 resetblock">
-            <h1>Reset Password</h1>
-            {{#if error}}
-            <p class="error">{{error}}</p>
-            {{/if}}
-            {{#if success}}
-            <p class="error_success">{{success}}</p>
-            {{/if}}
-            <form action="/email/reset" method="POST">
-           
-                 <div class="form-group">
-                   <label for="goodName">Enter your email</label>
-                   <input type="text" class="form-control" id="goodName" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                 </div>
-                 <input type="hidden" name="_csrf" value="{{csurf}}">
-                 <button type="submit" class="btn btn-primary">Send</button>
-           </form>
-         
-      </div>
+<div class="col-12 col-sm-6 col-lg-6 resetblock">
+  <h1>Reset Password</h1>
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+  {{#if success}}
+    <p class="error_success">{{success}}</p>
+  {{/if}}
+  <form action="/email/reset" method="POST">
+
+    <div class="form-group">
+      <label for="goodName">Enter your email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="goodName"
+        aria-describedby="emailHelp"
+        placeholder="Enter email"
+        name="email"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value="{{csurf}}" />
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+
+</div>
